@@ -27,10 +27,16 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           currentRoll,
           turnTotal
         };
+
         players[currentPlayer].score[currentTurn].turnScore[currentRoll] = score;
+
         const strike = currentRoll === 0 && score === PINS_COUNT;
+        players[currentPlayer].score[currentTurn].strike = strike;
+
         turnTotal += score;
-        const spare = turnTotal === PINS_COUNT;
+        const spare = !strike && turnTotal === PINS_COUNT;
+        players[currentPlayer].score[currentTurn].spare = spare;
+
         if(strike || spare){
           continue userTurn;
         }

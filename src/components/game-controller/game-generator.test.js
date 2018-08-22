@@ -62,6 +62,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(0);
     expect(currentRoll).toEqual(1);
     expect(players[0].score[0].turnScore).toEqual([3, null]);
+    expect(players[0].score[0].spare).toEqual(false);
+    expect(players[0].score[0].strike).toEqual(false);
   });
 
   it('1 turn, 2 roll of John', () => {
@@ -72,6 +74,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(0);
     expect(currentRoll).toEqual(0);
     expect(players[0].score[0].turnScore).toEqual([3, 7]);
+    expect(players[0].score[0].spare).toEqual(true);
+    expect(players[0].score[0].strike).toEqual(false);
   });
 
   it('1 turn, 1 roll of Peter', () => {
@@ -82,6 +86,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(0);
     expect(currentRoll).toEqual(1);
     expect(players[1].score[0].turnScore).toEqual([2, null]);
+    expect(players[1].score[0].spare).toEqual(false);
+    expect(players[1].score[0].strike).toEqual(false);
   });
 
   it('1 turn, 2 roll of Peter', () => {
@@ -92,6 +98,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(1);
     expect(currentRoll).toEqual(0);
     expect(players[1].score[0].turnScore).toEqual([2, 8]);
+    expect(players[1].score[0].spare).toEqual(true);
+    expect(players[1].score[0].strike).toEqual(false);
   });
 
   it('2 turn, 1 roll of John', () => {
@@ -102,6 +110,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(1);
     expect(currentRoll).toEqual(0);
     expect(players[0].score[1].turnScore).toEqual([10, null, null]);
+    expect(players[0].score[1].spare).toEqual(false);
+    expect(players[0].score[1].strike).toEqual(true);
   });
 
   it('2 turn, 1 roll of Peter', () => {
@@ -112,6 +122,8 @@ describe('multi player generator', () => {
     expect(currentTurn).toEqual(1);
     expect(currentRoll).toEqual(1);
     expect(players[1].score[1].turnScore).toEqual([5, null, null]);
+    expect(players[1].score[1].spare).toEqual(false);
+    expect(players[1].score[1].strike).toEqual(false);
   });
 
   it('2 turn, 2 roll of Peter', () => {
@@ -132,5 +144,7 @@ describe('multi player generator', () => {
     expect(currentTurn).toBeUndefined();
     expect(currentRoll).toBeUndefined();
     expect(players[1].score[1].turnScore).toEqual([5, 1, 2]);
+    expect(players[1].score[1].spare).toEqual(false);
+    expect(players[1].score[1].strike).toEqual(false);
   });
 })
