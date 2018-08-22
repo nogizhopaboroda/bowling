@@ -12,9 +12,12 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
     })
   }));
 
+  const playersTotal = [0, 0];
+
   for(let currentTurn = 0; currentTurn < frames; currentTurn++){
     const isLastTurn = currentTurn === frames - 1;
     const rolls = isLastTurn ? 3 : 2;
+
     userTurn:
     for(let currentPlayer = 0; currentPlayer < players.length; currentPlayer++){
       let turnTotal = 0;
@@ -36,6 +39,9 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
         turnTotal += score;
         const spare = !strike && turnTotal === PINS_COUNT;
         players[currentPlayer].score[currentTurn].spare = spare;
+
+        const playerGameTotal = playersTotal[currentPlayer] += score;
+        players[currentPlayer].score[currentTurn].gameTotal = playerGameTotal;
 
         if(strike || spare){
           continue userTurn;
