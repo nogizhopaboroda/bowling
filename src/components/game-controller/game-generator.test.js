@@ -71,4 +71,44 @@ describe('multi player generator', () => {
     expect(currentRoll).toEqual(0);
     expect(players[1].score[0]).toEqual([2, 8]);
   });
+
+  it('2 turn, 1 roll of John', () => {
+    const userScores = 10;
+    const { done, value: { currentPlayer, currentTurn, currentRoll, players } } = game.next(userScores);
+    expect(done).toEqual(false)
+    expect(currentPlayer).toEqual(1);
+    expect(currentTurn).toEqual(1);
+    expect(currentRoll).toEqual(0);
+    expect(players[0].score[1]).toEqual([10, null, null]);
+  });
+
+  it('2 turn, 1 roll of Peter', () => {
+    const userScores = 5;
+    const { done, value: { currentPlayer, currentTurn, currentRoll, players } } = game.next(userScores);
+    expect(done).toEqual(false)
+    expect(currentPlayer).toEqual(1);
+    expect(currentTurn).toEqual(1);
+    expect(currentRoll).toEqual(1);
+    expect(players[1].score[1]).toEqual([5, null, null]);
+  });
+
+  it('2 turn, 2 roll of Peter', () => {
+    const userScores = 1;
+    const { done, value: { currentPlayer, currentTurn, currentRoll, players } } = game.next(userScores);
+    expect(done).toEqual(false)
+    expect(currentPlayer).toEqual(1);
+    expect(currentTurn).toEqual(1);
+    expect(currentRoll).toEqual(2);
+    expect(players[1].score[1]).toEqual([5, 1, null]);
+  });
+
+  it('2 turn, 3 roll of Peter', () => {
+    const userScores = 2;
+    const { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(userScores);
+    expect(done).toEqual(true)
+    expect(currentPlayer).toBeUndefined();
+    expect(currentTurn).toBeUndefined();
+    expect(currentRoll).toBeUndefined();
+    expect(players[1].score[1]).toEqual([5, 1, 2]);
+  });
 })

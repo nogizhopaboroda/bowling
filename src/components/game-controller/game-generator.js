@@ -1,7 +1,8 @@
 const FRAMES_COUNT = 10;
+const PINS_COUNT = 10;
 
-export default function* (players, frames = FRAMES_COUNT){
-  const gameData = players.map((player, index) => ({
+export default function* (playersRaw, frames = FRAMES_COUNT){
+  const players = playersRaw.map((player, index) => ({
     name: player,
     id: index,
     score: (new Array(frames)).fill(null).map((_, frame) => {
@@ -9,23 +10,30 @@ export default function* (players, frames = FRAMES_COUNT){
     })
   }));
 
-  for(let turn = 0; turn < frames; turn++){
-    const isLastTurn = turn === frames - 1;
+  for(let currentTurn = 0; currentTurn < frames; currentTurn++){
+    const isLastTurn = currentTurn === frames - 1;
     const rolls = isLastTurn ? 3 : 2;
-    let turnTotal = 0;
-    for(let currentPlayer = 0; currentPlayer < gameData.length; currentPlayer++){
-      for(let roll = 0; roll < rolls; roll++){
+    userTurn:
+    for(let currentPlayer = 0; currentPlayer < players.length; currentPlayer++){
+      let turnTotal = 0;
+
+      for(let currentRoll = 0; currentRoll < rolls; currentRoll++){
         const score = yield {
-          players: gameData,
+          players,
           currentPlayer,
-          currentTurn: turn,
-          currentRoll: roll,
+          currentTurn,
+          currentRoll,
           turnTotal
         };
-        turnTotal += score
-        gameData[currentPlayer].score[turn][roll] = score;
+        players[currentPlayer].score[currentTurn][currentRoll] = score;
+        const strike = currentRoll === 0 && score === PINS_COUNT;
+        turnTotal += score;
+        const spare = turnTotal === PINS_COUNT;
+        if(strike || spare){
+          continue userTurn;
+        }
       }
     }
   }
-  return { players: gameData };
+  return { players };
 }
