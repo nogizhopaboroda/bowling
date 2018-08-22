@@ -3,14 +3,6 @@ import React from 'react';
 import FramesController from '../frames-controller/frames-controller';
 import TurnController from '../turn-controller/turn-controller';
 
-const players = ['John'];
-const gameData = players.map((player, index) => ({
-  [player]: {
-    id: index,
-    score: []
-  }
-}));
-
 const FRAMES = 3;
 
 export default class extends React.Component {
@@ -31,11 +23,17 @@ export default class extends React.Component {
   }
 
   roll(scored){
-
-    console.log(scored);
     const player = this.state.players[this.state.currentPlayer];
-
     this.state.players[this.state.currentPlayer].score[this.state.currentTurn][this.state.currentRoll] = scored;
+
+    this.setState(Object.assign({}, this.state, {
+      showScored: true
+    }));
+
+    setTimeout(this.nextTurn.bind(this), 1000);
+  }
+
+  nextTurn(){
 
     const isLastPlayer = this.state.currentPlayer === this.state.players.length - 1;
     const isLastTurn = this.state.currentTurn === FRAMES - 1;
@@ -59,6 +57,7 @@ export default class extends React.Component {
       currentTurn: nextTurn,
       currentRoll: nextRoll,
       isLastPlayer,
+      showScored: false
     }));
   }
 
@@ -70,6 +69,7 @@ export default class extends React.Component {
                         turn={this.state.currentTurn}
                         roll={this.state.currentRoll}
                         finished={this.state.end}
+                        showScored={this.state.showScored}
                         handleClick={this.roll.bind(this)}></TurnController>
       </div>
     );
