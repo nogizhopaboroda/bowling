@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-export default ({ index }) => {
+export default ({ index, turn }) => {
   return (
     <div style={{
       display: 'inline-block',
       border: '1px solid green'
-    }}>Frame: {index}</div>
+    }}>Frame: {index} {JSON.stringify(turn)}</div>
   )
 }
