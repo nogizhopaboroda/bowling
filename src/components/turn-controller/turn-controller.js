@@ -7,7 +7,7 @@ const getRandom = (max = 10) => {
 const sum = (arr) => arr.reduce((acc, item) => acc + item, 0);
 
 export default ({ player, turn, roll, handleClick, finished, showScored }) => {
-  const turnData = player.score[turn];
+  const turnData = player.score[turn].turnScore;
   const turnTotal = sum(turnData);
   const rest = 10 - turnTotal;
   return (

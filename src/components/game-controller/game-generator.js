@@ -6,7 +6,9 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
     name: player,
     id: index,
     score: (new Array(frames)).fill(null).map((_, frame) => {
-      return new Array(frame < frames - 1 ? 2 : 3).fill(null);
+      return {
+        turnScore: new Array(frame < frames - 1 ? 2 : 3).fill(null),
+      };
     })
   }));
 
@@ -25,7 +27,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           currentRoll,
           turnTotal
         };
-        players[currentPlayer].score[currentTurn][currentRoll] = score;
+        players[currentPlayer].score[currentTurn].turnScore[currentRoll] = score;
         const strike = currentRoll === 0 && score === PINS_COUNT;
         turnTotal += score;
         const spare = turnTotal === PINS_COUNT;
