@@ -43,6 +43,9 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
         const playerGameTotal = playersTotal[currentPlayer] += score;
         players[currentPlayer].score[currentTurn].gameTotal = playerGameTotal;
 
+        players[currentPlayer].score[currentTurn].turnTotal = turnTotal;
+        players[currentPlayer].score[currentTurn].restPins = PINS_COUNT - turnTotal;
+
         if(strike || spare){
           continue userTurn;
         }

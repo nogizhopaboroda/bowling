@@ -32,7 +32,7 @@ export default class extends React.Component {
       this.setState(Object.assign({}, this.state, value, {
         showScored: false
       }));
-    }, 10);
+    }, 1000);
   }
 
   render(){

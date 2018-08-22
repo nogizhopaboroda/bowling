@@ -7,22 +7,20 @@ const getRandom = (max = 10) => {
 const sum = (arr) => arr.reduce((acc, item) => acc + item, 0);
 
 export default ({ player, turn, roll, handleClick, finished, showScored }) => {
-  const turnData = player.score[turn].turnScore;
-  const turnTotal = sum(turnData);
-  const rest = 10 - turnTotal;
+  const { turnScore, strike, spare, turnTotal = 0, restPins = 10 } = player.score[turn];
   return (
     <div style={{border: '1px solid'}}>
       <div>Player name: {player.name}</div>
       <div>Turn #{turn}</div>
       <div>Roll #{roll}</div>
-      <span>{new Array(rest).fill('| ').join('')}</span>
+      <span>{new Array(restPins).fill('| ').join('')}</span>
       <span style={{color: 'red'}}>{new Array(turnTotal).fill('| ').join('')}</span>
       {showScored ? (
-        <span>you scored {player.score[turn][roll]}({turnTotal})</span>
+        <span> you scored {player.score[turn][roll]}({turnTotal})</span>
       ) : void 0}
       <button disabled={finished} onClick={() => {
         setTimeout(() => {
-          handleClick(getRandom(rest));
+          handleClick(getRandom(restPins));
         }, 300);
       }}>roll</button>
     </div>

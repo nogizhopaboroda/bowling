@@ -10,7 +10,7 @@ export default ({ gameData }) => {
     return (
       <div style={{border: '1px solid'}} key={i}>
         {user.score.map((turn, i) => (
-          <Frame key={i} index={i} turn={turn.turnScore}></Frame>
+          <Frame key={i} index={i} turn={turn.turnScore} total={turn.gameTotal}></Frame>
         ))}
       </div>
     )
