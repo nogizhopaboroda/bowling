@@ -13,7 +13,7 @@ export default class extends React.Component {
   }
 
   initGame({ players }){
-    this.game = createGame(players, 3);
+    this.game = createGame(players);
     const { done, value } = this.game.next();
     if(this.state){
       this.setState(Object.assign({}, value, { done }));

@@ -8,6 +8,12 @@
 .framesWrapper {
   border: 1px solid black;
   width: 100%;
+  & td {
+    width: 8%;
+    &:first-child, &:last-child {
+      width: 10%;
+    }
+  }
   & .framesHeader {
     background: var(--frames-header-color);
     & td {

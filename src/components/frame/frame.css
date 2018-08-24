@@ -1,0 +1,24 @@
+.frameWrapper {
+  min-height: 2em;
+  border-right: 1px solid;
+}
+
+.frameHeader, .frameTotal {
+  height: 1.5em;
+}
+
+.frameHeader {
+  text-align: left;
+  border-bottom: 1px solid;
+  & span {
+    height: 100%;
+    width: 30%;
+    float: left;
+    text-align: center;
+  }
+}
+
+.frameTotal {
+  text-align: center;
+}
+

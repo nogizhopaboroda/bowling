@@ -7,7 +7,7 @@ import classNames from './frames-controller.css';
 
 export default ({ gameData }) => {
     return (
-      <table className={classNames.framesWrapper} cellspacing="0" cellpadding="0">
+      <table className={classNames.framesWrapper} cellSpacing="0" cellPadding="0">
         <thead className={classNames.framesHeader}>
           <tr>
             <td></td>
