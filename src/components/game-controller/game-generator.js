@@ -9,7 +9,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
       return {
         turnScore: new Array(frame < frames - 1 ? 2 : 3).fill(null),
       };
-    })
+    }),
   }));
 
   const playersTotal = [0, 0];
@@ -18,10 +18,13 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
     const isLastTurn = currentTurn === frames - 1;
     const rolls = isLastTurn ? 3 : 2;
 
-    userTurn:
+    playerTurn:
     for(let currentPlayer = 0; currentPlayer < players.length; currentPlayer++){
       let turnTotal = 0;
+      const player = players[currentPlayer];
+      const turnData = player.score[currentTurn];
 
+      turnData.bonus = 0;
       for(let currentRoll = 0; currentRoll < rolls; currentRoll++){
         const score = yield {
           players,
@@ -31,23 +34,59 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           turnTotal
         };
 
-        players[currentPlayer].score[currentTurn].turnScore[currentRoll] = score;
+        turnData.turnScore[currentRoll] = score;
 
         const strike = currentRoll === 0 && score === PINS_COUNT;
-        players[currentPlayer].score[currentTurn].strike = strike;
+        turnData.strike = strike;
 
         turnTotal += score;
+        turnData.sum = turnTotal;
+
         const spare = !strike && turnTotal === PINS_COUNT;
-        players[currentPlayer].score[currentTurn].spare = spare;
+        turnData.spare = spare;
 
-        const playerGameTotal = playersTotal[currentPlayer] += score;
-        players[currentPlayer].score[currentTurn].gameTotal = playerGameTotal;
+        turnData.restPins = PINS_COUNT - turnTotal;
+        if(isLastTurn){
+          turnData.restPins = PINS_COUNT - (turnTotal % 10);
+          if(currentRoll === rolls - 1){
+            turnData.restPins = PINS_COUNT - ((turnTotal % 10) || 10);
+          }
+        }
 
-        players[currentPlayer].score[currentTurn].turnTotal = turnTotal;
-        players[currentPlayer].score[currentTurn].restPins = PINS_COUNT - turnTotal;
+        for(let i = 2; i > 0; i--){
+          const data = player.score[currentTurn - i];
+          if(data && data.waitRolls === 1){
+            data.bonus += score;
+            data.turnTotal = data.sum + data.bonus;
 
-        if(strike || spare){
-          continue userTurn;
+            data.gameTotal = ((player.score[currentTurn - i - 1] || {}).gameTotal || 0) + data.turnTotal;
+            data.waitRolls = 0;
+          }
+          if(data && data.waitRolls === 2){
+            data.bonus += score;
+            data.waitRolls = 1;
+          }
+        }
+
+        if(isLastTurn && currentRoll === rolls - 1){
+          turnData.turnTotal = turnData.sum;
+          turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
+        }
+        if(!spare && !strike && currentRoll === rolls - 1){
+          turnData.turnTotal = turnData.sum;
+          turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
+        }
+
+        if(strike){
+          turnData.waitRolls = 2;
+        }
+
+        if(currentRoll > 0 && spare){
+          turnData.waitRolls = 1;
+        }
+
+        if((!isLastTurn) && (strike || spare)){
+          continue playerTurn;
         }
       }
     }
