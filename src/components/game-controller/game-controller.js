@@ -9,42 +9,40 @@ import TurnController from '../turn-controller/turn-controller';
 export default class extends React.Component {
   constructor(props) {
     super(props);
-    this.game = createGame(props.players, 3);
-    this.state = this.game.next().value;
+    this.initGame(props);
+  }
+
+  initGame({ players }){
+    this.game = createGame(players, 3);
+    const { done, value } = this.game.next();
+    if(this.state){
+      this.setState(Object.assign({}, value, { done }));
+      return;
+    }
+    this.state = value;
   }
 
   roll(scored){
     const { value, done } = this.game.next(scored);
     const player = value.players[this.state.currentPlayer];
 
-    this.setState(Object.assign({}, this.state, {
-      showScored: true
-    }));
-
-    if(done){
-      this.setState(Object.assign({}, this.state, {
-        end: true
-      }));
-      return;
-    }
-
-    setTimeout(() => {
-      this.setState(Object.assign({}, this.state, value, {
-        showScored: false
-      }));
-    }, 1000);
+    this.setState(Object.assign({}, value, { done }));
   }
 
   render(){
     return (
       <div>
         <FramesController gameData={this.state.players}></FramesController>
-        <TurnController player={this.state.players[this.state.currentPlayer]}
-                        turn={this.state.currentTurn}
-                        roll={this.state.currentRoll}
-                        finished={this.state.end}
-                        showScored={this.state.showScored}
-                        handleClick={this.roll.bind(this)}></TurnController>
+        {this.state.done ? (
+          <button onClick={() => this.initGame({ players: ['Jake', 'Morgan', 'Andrew'] })}>once again</button>
+        ) : (
+          <TurnController player={this.state.players[this.state.currentPlayer]}
+                          turn={this.state.currentTurn}
+                          roll={this.state.currentRoll}
+                          finished={this.state.done}
+                          showScored={this.state.showScored}
+                          handleClick={this.roll.bind(this)}></TurnController>
+        )}
       </div>
     );
   }
