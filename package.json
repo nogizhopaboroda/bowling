@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "front": "parcel src/app.html",
     "test": "jest",
+    "front": "parcel src/app.html",
     "test:watch": "npm run test -- --watch"
   },
   "author": "",
