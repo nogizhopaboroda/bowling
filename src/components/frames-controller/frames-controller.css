@@ -1,0 +1,9 @@
+:root {
+}
+
+
+.foo {
+  border: 1px solid black;
+  & td {
+  }
+}

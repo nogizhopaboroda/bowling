@@ -2,14 +2,14 @@ import React from 'react';
 
 import Frame from '../frame/frame';
 
+import classNames from './frames-controller.css';
 
-const FRAMES = 10;
 
 export default ({ gameData }) => {
     return (
-      <table>
+      <table className={classNames.foo}>
         <thead>
-          <tr>
+          <tr className="bla">
             <td>Name</td>
             {gameData[0].score.map((_, i) => (
               <td key={i}>{i + 1}</td>
