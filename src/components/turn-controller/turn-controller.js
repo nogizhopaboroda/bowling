@@ -16,13 +16,15 @@ export default ({ player, turn, roll, handleClick, finished, showScored }) => {
       <span>{new Array(restPins).fill('| ').join('')}</span>
       <span style={{color: 'red'}}>{new Array(turnTotal).fill('| ').join('')}</span>
       {showScored ? (
-        <span> you scored {player.score[turn][roll]}({turnTotal})</span>
+        <div> you scored {player.score[turn].turnScore[roll]}({turnTotal})</div>
       ) : void 0}
-      <button disabled={finished} onClick={() => {
-        setTimeout(() => {
-          handleClick(getRandom(restPins));
-        }, 300);
-      }}>roll</button>
+      <div>
+        <button disabled={finished} onClick={() => {
+          setTimeout(() => {
+            handleClick(getRandom(restPins));
+          }, 300);
+        }}>roll</button>
+      </div>
     </div>
   )
 }
