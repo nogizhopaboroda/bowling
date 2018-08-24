@@ -23,8 +23,10 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
       let turnTotal = 0;
       const player = players[currentPlayer];
       const turnData = player.score[currentTurn];
+      const prevTurnData = player.score[currentTurn - 1] || {};
 
       turnData.bonus = 0;
+
       for(let currentRoll = 0; currentRoll < rolls; currentRoll++){
 
         const isLastRoll = currentRoll === rolls - 1;
@@ -58,11 +60,12 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
 
         for(let i = 2; i > 0; i--){
           const data = player.score[currentTurn - i];
+          const prevData = player.score[currentTurn - i - 1] || {};
           if(data && data.waitRolls === 1){
             data.bonus += score;
             data.turnTotal = data.sum + data.bonus;
 
-            data.gameTotal = ((player.score[currentTurn - i - 1] || {}).gameTotal || 0) + data.turnTotal;
+            data.gameTotal = (prevData.gameTotal || 0) + data.turnTotal;
             data.waitRolls = 0;
           }
           if(data && data.waitRolls === 2){
@@ -73,7 +76,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
 
         if((isLastTurn || !(spare || strike)) && isLastRoll){
           turnData.turnTotal = turnData.sum;
-          turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
+          turnData.gameTotal = (prevTurnData.gameTotal || 0) + turnData.turnTotal;
         }
 
         if(strike || spare){
