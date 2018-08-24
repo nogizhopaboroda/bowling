@@ -1,11 +1,15 @@
 ## How to run
 
 ```sh
+npm i
+```
+
+```sh
 #live server
 npm run front
 
 #build assets to ./docs
-npm run front
+npm run front:prod
 ```
 
 ## How to test
