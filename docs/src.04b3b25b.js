@@ -220,4 +220,4 @@ module.exports={rollButtonsWrapper:"_rollButtonsWrapper_bagcn_13",turnInfoWrappe
 },{"babel-runtime/helpers/classCallCheck":"dACh","babel-runtime/helpers/createClass":"jx4H","babel-runtime/helpers/possibleConstructorReturn":"VOrx","babel-runtime/helpers/inherits":"ZKjc","react":"1n8/","./game-generator":"d3tL","../frames-controller/frames-controller":"NW4i","../turn-controller/turn-controller":"I4II"}],"Focm":[function(require,module,exports) {
 "use strict";var e=require("react"),r=o(e),t=require("react-dom"),a=o(t),n=require("./components/game-controller/game-controller"),l=o(n);function o(e){return e&&e.__esModule?e:{default:e}}var u=r.default.createElement(l.default,{players:["John","Peter"]});a.default.render(u,document.getElementById("app-container"));
 },{"react":"1n8/","react-dom":"NKHc","./components/game-controller/game-controller":"d2MY"}]},{},["Focm"], null)
-//# sourceMappingURL=/src.14204888.map
+//# sourceMappingURL=src.14204888.map

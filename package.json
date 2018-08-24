@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "front": "parcel src/index.html",
-    "front:prod": "parcel build src/index.html -d docs",
+    "front:prod": "parcel build src/index.html -d docs  --public-url ./",
     "test:watch": "npm run test -- --watch"
   },
   "author": "",
