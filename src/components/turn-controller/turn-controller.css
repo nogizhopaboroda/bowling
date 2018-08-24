@@ -1,0 +1,26 @@
+.turnWrapper {
+  border: 1px solid;
+  padding: 1em;
+}
+
+.turnInfoWrapper {
+  padding: 0.5em 0;
+  & span {
+    margin-right: 1em;
+  }
+}
+
+.rollButtonsWrapper {
+  padding: 1em 0;
+
+  & button {
+    background: none;
+    border-radius: 0.3em;
+    padding: 0.6em 1em;
+    margin-right: 0.5em;
+    cursor: pointer;
+    &:hover {
+      background: #F5F5F5;
+    }
+  }
+}
