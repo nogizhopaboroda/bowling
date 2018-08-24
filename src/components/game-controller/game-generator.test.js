@@ -39,6 +39,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[1].waitRolls).toEqual(1);
     expect(players[0].score[1].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(20);
   });
 
   it('3 turn, 1 roll, player scores 6', () => {
@@ -48,12 +50,16 @@ describe('player score calculation', () => {
     expect(players[0].score[1].gameTotal).toEqual(36);
 
     expect(players[0].score[2].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(36);
   });
 
   it('3 turn, 2 roll, player scores 1', () => {
     let { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(1);
 
     expect(players[0].score[2].gameTotal).toEqual(43);
+
+    expect(players[0].gameTotal).toEqual(43);
   });
 
   it('4 turn, 1 roll, player scores strike', () => {
@@ -61,6 +67,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[3].gameTotal).toEqual(undefined);
     expect(players[0].score[3].waitRolls).toEqual(2);
+
+    expect(players[0].gameTotal).toEqual(43);
   });
 
   it('5 turn, 1 roll, player scores strike', () => {
@@ -71,6 +79,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[4].gameTotal).toEqual(undefined);
     expect(players[0].score[4].waitRolls).toEqual(2);
+
+    expect(players[0].gameTotal).toEqual(43);
   });
 
   it('6 turn, 1 roll, player scores strike', () => {
@@ -84,6 +94,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[5].gameTotal).toEqual(undefined);
     expect(players[0].score[5].waitRolls).toEqual(2);
+
+    expect(players[0].gameTotal).toEqual(73);
   });
 
   it('7 turn, 1 roll, player scores 2', () => {
@@ -97,6 +109,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[6].gameTotal).toEqual(undefined);
     expect(players[0].score[6].waitRolls).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(95);
   });
 
   it('7 turn, 2 roll, player scores spare', () => {
@@ -107,6 +121,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[6].gameTotal).toEqual(undefined);
     expect(players[0].score[6].waitRolls).toEqual(1);
+
+    expect(players[0].gameTotal).toEqual(115);
   });
 
   it('8 turn, 1 roll, player scores 9', () => {
@@ -116,18 +132,24 @@ describe('player score calculation', () => {
     expect(players[0].score[6].waitRolls).toEqual(0);
 
     expect(players[0].score[7].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(134);
   });
 
   it('8 turn, 2 roll, player scores 0', () => {
     let { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(0);
 
     expect(players[0].score[7].gameTotal).toEqual(143);
+
+    expect(players[0].gameTotal).toEqual(143);
   });
 
   it('9 turn, 1 roll, player scores 7', () => {
     let { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(7);
 
     expect(players[0].score[8].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(143);
   });
 
   it('9 turn, 2 roll, player scores spare', () => {
@@ -135,6 +157,8 @@ describe('player score calculation', () => {
 
     expect(players[0].score[8].gameTotal).toEqual(undefined);
     expect(players[0].score[8].waitRolls).toEqual(1);
+
+    expect(players[0].gameTotal).toEqual(143);
   });
 
   it('10 turn, 1 roll, player scores strike', () => {
@@ -144,18 +168,24 @@ describe('player score calculation', () => {
     expect(players[0].score[8].waitRolls).toEqual(0);
 
     expect(players[0].score[9].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(163);
   });
 
   it('10 turn, 2 roll, player scores strike', () => {
     let { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(10);
 
     expect(players[0].score[9].gameTotal).toEqual(undefined);
+
+    expect(players[0].gameTotal).toEqual(163);
   });
 
   it('10 turn, 3 roll, player scores strike', () => {
     let { done, value: { currentPlayer, currentTurn, currentRoll, players }  } = game.next(10);
 
     expect(players[0].score[9].gameTotal).toEqual(193);
+
+    expect(players[0].gameTotal).toEqual(193);
   });
 
 });

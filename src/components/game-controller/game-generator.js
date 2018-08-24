@@ -66,6 +66,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
             data.turnTotal = data.sum + data.bonus;
 
             data.gameTotal = (prevData.gameTotal || 0) + data.turnTotal;
+            player.gameTotal = data.gameTotal;
             data.waitRolls = 0;
           }
           if(data && data.waitRolls === 2){
@@ -77,6 +78,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
         if((isLastTurn || !(spare || strike)) && isLastRoll){
           turnData.turnTotal = turnData.sum;
           turnData.gameTotal = (prevTurnData.gameTotal || 0) + turnData.turnTotal;
+          player.gameTotal = turnData.gameTotal;
         }
 
         if(strike || spare){
