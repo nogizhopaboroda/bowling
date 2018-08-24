@@ -7,17 +7,17 @@ import classNames from './frames-controller.css';
 
 export default ({ gameData }) => {
     return (
-      <table className={classNames.foo}>
-        <thead>
-          <tr className="bla">
-            <td>Name</td>
+      <table className={classNames.framesWrapper} cellspacing="0" cellpadding="0">
+        <thead className={classNames.framesHeader}>
+          <tr>
+            <td></td>
             {gameData[0].score.map((_, i) => (
               <td key={i}>{i + 1}</td>
             ))}
             <td>total</td>
           </tr>
         </thead>
-        <tbody>
+        <tbody className={classNames.framesBody}>
           {gameData.map((user, i) => (
             <tr key={i}>
               <td>{user.name}</td>

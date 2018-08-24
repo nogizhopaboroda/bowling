@@ -1,9 +1,35 @@
 :root {
+  --frames-header-color: #FFEB3B;
+  --frames-row-color: #448AFF;
+  --frames-odd-row-color: #B2EBF2;
 }
 
 
-.foo {
+.framesWrapper {
   border: 1px solid black;
-  & td {
+  width: 100%;
+  & .framesHeader {
+    background: var(--frames-header-color);
+    & td {
+      padding: 0.8em 0;
+      text-align: center;
+      font-weight: 600;
+      &:last-child {
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  & .framesBody {
+    & tr {
+      background: var(--frames-row-color);
+    }
+    & tr:nth-child(odd) {
+      background: var(--frames-odd-row-color);
+    }
+    & td {
+      text-align: center;
+      text-transform: uppercase;
+    }
   }
 }
