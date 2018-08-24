@@ -76,16 +76,11 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
         }
 
-        if(strike){
-          turnData.waitRolls = 2;
-        }
-
-        if(spare){
-          turnData.waitRolls = 1;
-        }
-
-        if((!isLastTurn) && (strike || spare)){
-          continue playerTurn;
+        if(strike || spare){
+          turnData.waitRolls = strike ? 2 : 1;
+          if(!isLastTurn){
+            continue playerTurn;
+          }
         }
       }
     }
