@@ -7,7 +7,8 @@
     "test": "jest",
     "front": "parcel src/index.html",
     "front:prod": "parcel build src/index.html -d docs  --public-url ./",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "postinstall": "npm run front:prod"
   },
   "author": "",
   "license": "ISC",
