@@ -23,7 +23,7 @@ export default ({ gameData }) => {
               <td>{user.name}</td>
               {user.score.map((turn, i) => (
                 <td key={i}>
-                  <Frame key={i} index={i} turn={turn.turnScore} total={turn.gameTotal}></Frame>
+                  <Frame key={i} index={i} turn={turn}></Frame>
                  </td>
               ))}
               <td>{user.gameTotal}</td>
