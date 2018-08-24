@@ -2,6 +2,7 @@
 
 ```sh
 npm i
+#that's it
 ```
 
 ```sh
