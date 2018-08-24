@@ -26,6 +26,9 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
 
       turnData.bonus = 0;
       for(let currentRoll = 0; currentRoll < rolls; currentRoll++){
+
+        const isLastRoll = currentRoll === rolls - 1;
+
         const score = yield {
           players,
           currentPlayer,
@@ -48,7 +51,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
         turnData.restPins = PINS_COUNT - turnTotal;
         if(isLastTurn){
           turnData.restPins = PINS_COUNT - (turnTotal % 10);
-          if(currentRoll === rolls - 1){
+          if(isLastRoll){
             turnData.restPins = PINS_COUNT - ((turnTotal % 10) || 10);
           }
         }
@@ -68,11 +71,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           }
         }
 
-        if(isLastTurn && currentRoll === rolls - 1){
-          turnData.turnTotal = turnData.sum;
-          turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
-        }
-        if(!spare && !strike && currentRoll === rolls - 1){
+        if((isLastTurn || !(spare || strike)) && isLastRoll){
           turnData.turnTotal = turnData.sum;
           turnData.gameTotal = (player.score[currentTurn - 1] || {}).gameTotal + turnData.turnTotal;
         }
@@ -81,7 +80,7 @@ export default function* (playersRaw, frames = FRAMES_COUNT){
           turnData.waitRolls = 2;
         }
 
-        if(currentRoll > 0 && spare){
+        if(spare){
           turnData.waitRolls = 1;
         }
 
